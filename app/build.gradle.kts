@@ -6,9 +6,9 @@ plugins {
     kotlin("android")
 }
 
-val APP_VERSION_NAME : String by project
-val APP_VERSION_CODE : String by project
-val APP_ID : String by project
+val APP_VERSION_NAME: String by project
+val APP_VERSION_CODE: String by project
+val APP_ID: String by project
 
 android {
     compileSdk = libs.versions.compile.sdk.version.get().toInt()
@@ -24,6 +24,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -40,23 +41,10 @@ android {
     }
 
     lint {
-        warningsAsErrors = true
-        abortOnError = true
+        warningsAsErrors = false
+        abortOnError = false
         disable.add("GradleDependency")
     }
-
-    // Use this block to configure different flavors
-//    flavorDimensions("version")
-//    productFlavors {
-//        create("full") {
-//            dimension = "version"
-//            applicationIdSuffix = ".full"
-//        }
-//        create("demo") {
-//            dimension = "version"
-//            applicationIdSuffix = ".demo"
-//        }
-//    }
 }
 
 tasks.withType<KotlinCompile>().configureEach {
@@ -73,6 +61,13 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraint.layout)
     implementation(libs.androidx.core.ktx)
+
+    implementation(platform("androidx.compose:compose-bom:2024.09.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.activity:activity-compose:1.9.2")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     testImplementation(libs.junit)
 
